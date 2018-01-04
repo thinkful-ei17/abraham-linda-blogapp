@@ -3,8 +3,11 @@
 CREATE TABLE stories (
   id serial primary key,
   title text not null,
-  content text not null
+  content text not null,
+  created timestamp DEFAULT now()
 );
+
+ALTER SEQUENCE stories_id_seq RESTART WITH 1000;
 
 -- Insert initial Data
 
