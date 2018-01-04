@@ -3,26 +3,37 @@
 const express = require('express');
 const router = express.Router();
 
-var data = require('../db/dummy-data');
-
-// const { DATABASE } = require('../config');
-// const knex = require('knex')(DATABASE);
+const { DATABASE } = require('../config');
+const knex = require('knex')(DATABASE);
 
 /* ========== GET/READ ALL ITEMS ========== */
 router.get('/stories', (req, res) => {
   if (req.query.search) {
-    const filtered = data.filter((obj) => obj.title.includes(req.query.search));
-    res.json(filtered);
-  } else {
-    res.json(data);
-  }
-});
+    knex.select('title','content')
+      .from('stories')
+      .where('title','like',`%${req.query.search}%`)
+      .then( results => {
+        res.json(results);
+      });
+    }
+
+    knex.select('title','content')
+    .from('stories')
+    .then( results => {
+      res.json(results);
+    });
+
+  });
 
 /* ========== GET/READ SINGLE ITEMS ========== */
 router.get('/stories/:id', (req, res) => {
   const id = Number(req.params.id);
-  const item = data.find((obj) => obj.id === id);
-  res.json(item);
+  knex.select('title','content')
+  .from('stories')
+  .where('id', id)
+  .then(results => {
+    res.json(results);
+  });
 });
 
 /* ========== POST/CREATE ITEM ========== */
