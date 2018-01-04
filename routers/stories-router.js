@@ -15,15 +15,15 @@ router.get('/stories', (req, res) => {
       .then( results => {
         res.json(results);
       });
-    }
+  }
 
-    knex.select('title','content')
+  knex.select('title','content')
     .from('stories')
     .then( results => {
       res.json(results);
     });
 
-  });
+});
 
 /* ========== GET/READ SINGLE ITEMS ========== */
 router.get('/stories/:id', (req, res) => {
@@ -57,7 +57,7 @@ router.post('/stories', (req, res) => {
   .into('stories')
   .returning('id','title','content')
   .then(results => {
-  res.location(`${req.originalUrl}/${results.id}`).status(201).json(results);
+    res.location(`${req.originalUrl}/${results.id}`).status(201).json(results);
   }
   );
 });
@@ -65,13 +65,14 @@ router.post('/stories', (req, res) => {
 /* ========== PUT/UPDATE A SINGLE ITEM ========== */
 router.put('/stories/:id', (req, res) => {
   const {title, content} = req.body;
-  
-  /***** Never Trust Users! *****/
-  
   const id = Number(req.params.id);
-  const item = data.find((obj) => obj.id === id);
-  Object.assign(item, {title, content});
-  res.json(item);
+  knex('stories')
+  .update({title: title, content: content})
+  .where('id', id)
+  .returning(['id','title','content'])
+  .then(results => {
+    res.json(results);
+  });
 });
 
 /* ========== DELETE/REMOVE A SINGLE ITEM ========== */
