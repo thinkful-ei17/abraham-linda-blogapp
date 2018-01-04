@@ -16,14 +16,14 @@ process.stdout.write('\x1Bc');
 
 /* ========== GET/READ ALL ITEMS ========== */
 router.get('/stories', (req, res) => {
-  knex.select('title', 'content')
+  knex.select('id','title', 'content')
     .from('stories')
     .then(results => res.json(results));
 });
 
 /* ========== GET/READ SINGLE ITEMS ========== */
 router.get('/stories/:id', (req, res) => {
-  knex.select('title', 'content')
+  knex.select('id','title', 'content')
     .from('stories')
     .where('stories.id', req.params.id)
     .then(results => res.json(results));
@@ -61,24 +61,37 @@ router.post('/stories', (req, res) => {
 });
   
 // /* ========== PUT/UPDATE A SINGLE ITEM ========== */
-// router.put('/stories/:id', (req, res) => {
-//   const {title, content} = req.body;
-  
-//   /***** Never Trust Users! *****/
-  
-//   const id = Number(req.params.id);
-//   const item = data.find((obj) => obj.id === id);
-//   Object.assign(item, {title, content});
-//   res.json(item);
-// });
+router.put('/stories/:id', (req, res) => {
+  const requiredFields = ['title', 'content'];
+
+  for(let i = 0; i < requiredFields.length; i++){
+    const field = requiredFields[i];
+    if(!(field in req.body)) {
+      const errorMessage = `You're missing a required field: ${field}`;
+      console.error(errorMessage);
+      res.status(400).end();
+      return;
+    }
+  }
+
+  const {title, content} = req.body;
+
+  knex('stories')
+    .update({title: title, content: content})
+    .where('stories.id', req.params.id)
+    .then(results => {
+      res.json(results);
+    });
+
+});
 
 // /* ========== DELETE/REMOVE A SINGLE ITEM ========== */
-// router.delete('/stories/:id', (req, res) => {
-//   const id = Number(req.params.id);
-//   const index = data.findIndex((obj) => obj.id === id);
-//   data.splice(index, 1);
-//   res.status(204).end();
-// });
+router.delete('/stories/:id', (req, res) => {
+  const id = Number(req.params.id);
+  const index = data.findIndex((obj) => obj.id === id);
+  data.splice(index, 1);
+  res.status(204).end();
+});
 
 module.exports = router;
 
