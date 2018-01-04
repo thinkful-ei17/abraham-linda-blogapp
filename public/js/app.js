@@ -37,12 +37,12 @@ const renderDetail = function (store) {
 
 const render = function (store) {
   switch (store.view) {
-    case 'list': renderList(store);
-      break;
-    case 'detail': renderDetail(store);
-      break;
-    case 'edit': renderEdit(store);
-      break;
+  case 'list': renderList(store);
+    break;
+  case 'detail': renderDetail(store);
+    break;
+  case 'edit': renderEdit(store);
+    break;
   }
 
   renderPage(store);

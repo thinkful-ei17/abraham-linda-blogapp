@@ -35,9 +35,9 @@ You have been hired to complete an API for a blog app. The previous developer ha
   - [x] Import `knex` and database config into the router file
   - [x] Update GET `/api/v1/stories` endpoint to use `knex.select()...`
   - [x] Update GET `/api/v1/stories/:id` endpoint to use `knex.select()...`
-  - [ ] Update POST `/api/v1/stories/` endpoint to use `knex.insert()...`
-  - [ ] Update PUT `/api/v1/stories/:id` endpoint to use `knex.update()...`
-  - [ ] Update DELETE `/api/v1/stories/:id` endpoint to use `knex.del()...`
+  - [x] Update POST `/api/v1/stories/` endpoint to use `knex.insert()...`
+  - [x] Update PUT `/api/v1/stories/:id` endpoint to use `knex.update()...`
+  - [x] Update DELETE `/api/v1/stories/:id` endpoint to use `knex.del()...`
 
 - Deploy to Heroku (see [Deploying to Heroku](https://courses.thinkful.com/node-001v5/project/1.3.5))
   - [ ] Install Heroku CLI app, if necessary
