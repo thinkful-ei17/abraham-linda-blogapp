@@ -15,7 +15,7 @@ const renderList = function (store) {
   const el = $('#' + store.view);
   const listItems = store.list.map((item) => {
     return `<li id="${item.id}">
-                <a href="http://localhost:8080/api/v1/stories/${item.id}" class="detail">${item.title}</a>
+                <a href="${item.id}" class="detail">${item.title}</a>
               </li>`;
   });
   el.empty().append('<ul>').find('ul').append(listItems);
