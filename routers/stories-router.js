@@ -78,9 +78,13 @@ router.put('/stories/:id', (req, res) => {
 /* ========== DELETE/REMOVE A SINGLE ITEM ========== */
 router.delete('/stories/:id', (req, res) => {
   const id = Number(req.params.id);
-  const index = data.findIndex((obj) => obj.id === id);
-  data.splice(index, 1);
-  res.status(204).end();
-});
+  knex
+  .from('stories')
+  .del()
+  .where('id',id)
+  .then(
+    res.status(204).end()
+  );
+  });
 
 module.exports = router;
