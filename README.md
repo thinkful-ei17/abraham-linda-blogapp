@@ -40,9 +40,9 @@ You have been hired to complete an API for a blog app. The previous developer ha
   - [x] Update DELETE `/api/v1/stories/:id` endpoint to use `knex.del()...`
 
 - Deploy to Heroku (see [Deploying to Heroku](https://courses.thinkful.com/node-001v5/project/1.3.5))
-  - [ ] Install Heroku CLI app, if necessary
-  - [ ] Create app on Heroku
-  - [ ] Update git remote to point to Heroku
-  - [ ] Push app to Heroku. (Note: app won't work yet)
-  - [ ] Create a production database on Elephant SQL. Use `query.sql` from earlier to easily create the database
-  - [ ] Configure Heroku config vars to use `DATABASE_URL` and the Elephant SQL connection string  
+  - [x] Install Heroku CLI app, if necessary
+  - [x] Create app on Heroku
+  - [x] Update git remote to point to Heroku
+  - [x] Push app to Heroku. (Note: app won't work yet)
+  - [x] Create a production database on Elephant SQL. Use `query.sql` from earlier to easily create the database
+  - [x] Configure Heroku config vars to use `DATABASE_URL` and the Elephant SQL connection string  

@@ -17,7 +17,7 @@ router.get('/stories', (req, res) => {
       });
   }
 
-  knex.select('title','content')
+  knex.select('id','title','content')
     .from('stories')
     .then( results => {
       res.json(results);
@@ -28,9 +28,10 @@ router.get('/stories', (req, res) => {
 /* ========== GET/READ SINGLE ITEMS ========== */
 router.get('/stories/:id', (req, res) => {
   const id = Number(req.params.id);
-  knex.select('title','content')
+  knex.first('id','title','content')
   .from('stories')
   .where('id', id)
+  // .returning(['id','title','content'])
   .then(results => {
     res.json(results);
   });
@@ -57,7 +58,7 @@ router.post('/stories', (req, res) => {
   .into('stories')
   .returning(['id','title','content'])
   .then(results => {
-    res.location(`${req.originalUrl}/${results.id}`).status(201).json(results);
+    res.location(`${req.originalUrl}/${results.id}`).status(201).json(results[0]);
   }
   );
 });
@@ -71,7 +72,7 @@ router.put('/stories/:id', (req, res) => {
   .where('id', id)
   .returning(['id','title','content'])
   .then(results => {
-    res.json(results);
+    res.json(results[0]);
   });
 });
 
