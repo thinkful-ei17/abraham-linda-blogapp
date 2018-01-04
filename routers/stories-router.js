@@ -23,7 +23,7 @@ router.get('/stories', (req, res) => {
 
 /* ========== GET/READ SINGLE ITEMS ========== */
 router.get('/stories/:id', (req, res) => {
-  knex.select('id','title', 'content')
+  knex.first('id','title', 'content')
     .from('stories')
     .where('stories.id', req.params.id)
     .then(results => res.json(results));
@@ -56,7 +56,7 @@ router.post('/stories', (req, res) => {
     .into('stories')
     .returning(['id','title','content'])
     .then(results => {
-      res.location(`${req.originalUrl}/${results.id}`).status(201).json(results);
+      res.location(`${req.originalUrl}/${results.id}`).status(201).json(results[0]);
     });
 });
   
@@ -79,8 +79,10 @@ router.put('/stories/:id', (req, res) => {
   knex('stories')
     .update({title: title, content: content})
     .where('stories.id', req.params.id)
+    .returning(['id','title','content'])
     .then(results => {
-      res.json(results);
+      res.json(results[0]);
+      
     });
 
 });
