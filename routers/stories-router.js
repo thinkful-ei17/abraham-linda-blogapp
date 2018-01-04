@@ -54,7 +54,7 @@ router.post('/stories', (req, res) => {
   knex
     .insert(newItem)
     .into('stories')
-    .return(['id','title','content'])
+    .returning(['id','title','content'])
     .then(results => {
       res.location(`${req.originalUrl}/${results.id}`).status(201).json(results);
     });
