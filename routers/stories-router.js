@@ -87,11 +87,13 @@ router.put('/stories/:id', (req, res) => {
 
 // /* ========== DELETE/REMOVE A SINGLE ITEM ========== */
 router.delete('/stories/:id', (req, res) => {
-  const id = Number(req.params.id);
-  const index = data.findIndex((obj) => obj.id === id);
-  data.splice(index, 1);
-  res.status(204).end();
+  knex
+    .del()
+    .from('stories')
+    .where('id',req.params.id)
+    .then(res.status(204).end());
 });
+
 
 module.exports = router;
 
@@ -148,13 +150,3 @@ module.exports = router;
 //   res.status(204).end();
 // });
 // ORIGINAL TEXT RETAINED FOR REVIEW PURPOSES - STOP
-
-// knex.select('title', 'content')
-// .from('stories')
-// .then(results => results.forEach(row => {
-//   const hydrated = {};
-//   if (!(row.id in hydrated)) {
-//     hydrated[row.id] = {
-//       id: row.id,
-//       title: row.title,
-//       content: row.content,
