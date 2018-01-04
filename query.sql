@@ -1,4 +1,6 @@
 --create stories table
+
+
 CREATE TABLE stories (
   id SERIAL PRIMARY KEY,
   title text NOT NULL,
