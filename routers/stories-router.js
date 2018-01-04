@@ -38,17 +38,28 @@ router.get('/stories/:id', (req, res) => {
 
 /* ========== POST/CREATE ITEM ========== */
 router.post('/stories', (req, res) => {
-  const {title, content} = req.body;
-  
-  /***** Never Trust Users! *****/  
-  const newItem = {
-    id: data.nextVal++,
-    title: title,
-    content: content
-  };
-  data.push(newItem);
+  const requiredFields = ['title','content'];
+  for(let i=0; i < requiredFields.length; i++){
+    const field = requiredFields[i];
+    if(!(field in req.body)){
+      const message = `Missing required field ${field} in request body`;
+      return res.status(400).send(message);
+    }
+  }
 
-  res.location(`${req.originalUrl}/${newItem.id}`).status(201).json(newItem);
+  const {title, content} = req.body;
+  const newItem = {
+    title,
+    content
+  };
+
+  knex.insert(newItem)
+  .into('stories')
+  .returning('id','title','content')
+  .then(results => {
+  res.location(`${req.originalUrl}/${results.id}`).status(201).json(results);
+  }
+  );
 });
 
 /* ========== PUT/UPDATE A SINGLE ITEM ========== */
