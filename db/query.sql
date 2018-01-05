@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS stories;
+
 -- Create posts table
 
 CREATE TABLE stories (
