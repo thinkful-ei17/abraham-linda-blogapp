@@ -1,32 +1,34 @@
 DROP TABLE IF EXISTS stories;
 DROP TABLE IF EXISTS authors;
 
+-- Create authors table
+
+CREATE TABLE authors (
+  id serial PRIMARY KEY,
+  username text not null,
+  email_address text,
+  created timestamp default now()
+);
+
+INSERT INTO authors (username) values 
+('Persian'),
+('Maine'),
+('Siamese'),
+('Ragdoll'),
+('Sphynx');
 -- Create posts table
 
 CREATE TABLE stories (
   id serial primary key,
   title text not null,
   content text not null,
-  author_id int not null,
+  author_id int references authors on delete restrict,
   created timestamp DEFAULT now()
 );
 
 ALTER SEQUENCE stories_id_seq RESTART WITH 1000;
 
-CREATE TABLE authors (
-  id serial PRIMARY KEY,
-  first_name text not null,
-  last_name text not null,
-  email_address text,
-  created timestamp default now()
-);
 
-INSERT INTO authors (first_name, last_name) values 
-('Alice','Persian'),
-('Bob','Maine'),
-('Charlie','Siamese'),
-('David','Ragdoll'),
-('Edna','Sphynx');
 
 -- Insert initial Data
 
