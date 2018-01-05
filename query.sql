@@ -1,6 +1,9 @@
 --create stories table
 
 
+DROP TABLE IF EXISTS stories;
+
+
 CREATE TABLE stories (
   id SERIAL PRIMARY KEY,
   title text NOT NULL,
