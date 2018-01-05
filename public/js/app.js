@@ -64,6 +64,7 @@ $(() => {
       .then(response => {
         store.insert(response);
         store.view = 'detail';
+        el.find('[name=title], [name=content]').val('');
         render(store);
       }).catch(err => {
         console.error(err);
