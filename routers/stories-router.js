@@ -57,8 +57,8 @@ router.post('/stories', (req, res) => {
   knex.insert(newItem)
   .into('stories')
   .returning(['id','title','content'])
-  .then(results => {
-    res.location(`${req.originalUrl}/${results.id}`).status(201).json(results[0]);
+  .then(([results]) => {
+    res.location(`${req.originalUrl}/${results.id}`).status(201).json(results);
   }
   );
 });
@@ -71,8 +71,8 @@ router.put('/stories/:id', (req, res) => {
   .update({title: title, content: content})
   .where('id', id)
   .returning(['id','title','content'])
-  .then(results => {
-    res.json(results[0]);
+  .then(([results]) => {
+    res.json(results);
   });
 });
 
