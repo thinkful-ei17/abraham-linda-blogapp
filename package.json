@@ -2,7 +2,7 @@
   "name": "blog-app",
   "version": "1.0.0",
   "description": "Step-by-step guide to creating a basic blog app in node and express backed by postgres",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -22,6 +22,10 @@
     "express": "^4.16.2",
     "knex": "^0.14.2",
     "morgan": "^1.9.0",
+    "nodemon": "^1.14.8",
     "pg": "^7.4.0"
+  },
+  "devDependencies": {
+    "dotenv": "^4.0.0"
   }
 }
