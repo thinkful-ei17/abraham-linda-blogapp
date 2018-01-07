@@ -4,7 +4,9 @@ const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-const storiesRouterV1 = require('./routers/stories-router-v1');
+const storiesRouterV1 = require('./routers/v1/stories-router');
+const storiesRouterV2 = require('./routers/v2/stories-router');
+const authorsRouterV2 = require('./routers/v2/authors-router');
 const { PORT } = require('./config');
 
 const app = express();
@@ -14,7 +16,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(bodyParser.json());
 
+app.get('/', (req, res)=>{
+    res.redirect('/v2');
+  }
+);
+
 app.use('/api/v1', storiesRouterV1);
+app.use('/api/v2', storiesRouterV2);
+app.use('/api/v2', authorsRouterV2);
 
 
 // Catch-all endpoint for requests to non-existent endpoint
@@ -33,6 +42,7 @@ app.use(function (err, req, res, next) {
     error: (app.get('env') === 'development') ? err : {}
   });
 });
+
 
 const server = app
   .listen(PORT, () => {

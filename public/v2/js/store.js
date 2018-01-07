@@ -6,6 +6,7 @@ class Store {
   constructor() {
     this.list = null; // holds the list of stories from the API
     this.item = null; // holds the currently selected item
+    this.authors = null;
     this.view = null;
   }
 

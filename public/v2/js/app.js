@@ -15,7 +15,7 @@ const renderList = function (store) {
   const el = $('#' + store.view);
   const listItems = store.list.map((item) => {
     return `<li id="${item.id}">
-                <a href="${item.url}" class="detail">${item.title}</a>
+                <a href="${item.url}" class="detail">${item.title} by ${item.username}</a>
               </li>`;
   });
   el.empty().append('<ul>').find('ul').append(listItems);
@@ -24,15 +24,21 @@ const renderList = function (store) {
 const renderEdit = function (store) {
   const el = $('#' + store.view);
   const item = store.item;
+  const authorList = store.authors.map(a => {
+    return `<option value="${a.id}">${a.username}</option>`;
+  });
   el.find('[name=title]').val(item.title);
+  el.find('[name=author_id]').empty().append('<option>---</option>').append(authorList);
+  el.find('[name=author_id]').children(`option[value=${item.author_id}]`).attr('selected', 'selected');
   el.find('[name=content]').val(item.content);
 };
 
-const renderDetail = function (store) {
+const renderDetail = function (store) {  
   const el = $('#' + store.view);
   const item = store.item;
   el.find('.title').text(item.title);
   el.find('.content').text(item.content);
+  el.find('.author').text(item.username);
 };
 
 const render = function (store) {
@@ -58,13 +64,14 @@ $(() => {
     const el = $(event.target);
     const document = {
       title: el.find('[name=title]').val(),
-      content: el.find('[name=content]').val()
+      content: el.find('[name=content]').val(),
+      author_id: el.find(['name=author_id']).val()
     };
     api.create(document)
       .then(response => {
         store.insert(response);
         store.view = 'detail';
-        el.find('[name=title], [name=content]').val('');
+        el.find('[name=title], [name=content], [name=author_id]').val('');
         render(store);
       }).catch(err => {
         console.error(err);
@@ -74,11 +81,11 @@ $(() => {
   $('#edit').on('submit', (event) => {
     event.preventDefault();
     const el = $(event.target);
-
     const document = {
       id: store.item.id,
       title: el.find('[name=title]').val(),
-      content: el.find('[name=content]').val()
+      content: el.find('[name=content]').val(),
+      author_id: el.find('[name=author_id]').val()
     };
 
     api.update(document)
@@ -123,8 +130,12 @@ $(() => {
 
   $('#detail').on('click', '.edit', (event) => {
     event.preventDefault();
-    store.view = 'edit';
-    render(store);
+    store.authors = null;
+    api.getAuthors().then(response => {
+      store.authors = response;
+      store.view = 'edit';
+      render(store);
+    });
   });
 
   $(document).on('click', '.viewCreate', (event) => {

@@ -27,8 +27,18 @@ function normalizeResponseErrors(res) {
 }
 
 var api = {
+  getAuthors: function(){
+    const url = buildUrl('/api/v2/authors');
+    return fetch(url, {
+      method: 'GET',
+      headers: {
+        'Accept':'application/json'
+      }
+    }).then(normalizeResponseErrors)
+    .then(res => res.json());
+  },
   search: function (query = {}) {
-    const url = buildUrl('/api/v1/stories/', query);
+    const url = buildUrl('/api/v2/stories/', query);
 
     return fetch(url, {
       method: 'GET',
@@ -39,7 +49,7 @@ var api = {
       .then(res => res.json());
   },
   details: function (id) {
-    const url = buildUrl(`/api/v1/stories/${id}`);
+    const url = buildUrl(`/api/v2/stories/${id}`);
 
     return fetch(url, {
       method: 'GET',
@@ -50,7 +60,7 @@ var api = {
       .then(res => res.json());
   },
   create: function (document) {
-    const url = buildUrl('/api/v1/stories/');
+    const url = buildUrl('/api/v2/stories/');
 
     return fetch(url, {
       method: 'POST',
@@ -63,7 +73,7 @@ var api = {
       .then(res => res.json());
   },  
   update: function (document) {
-    const url = buildUrl(`/api/v1/stories/${document.id}`);
+    const url = buildUrl(`/api/v2/stories/${document.id}`);
     
     return fetch(url, {
       method: 'PUT',
@@ -76,7 +86,7 @@ var api = {
       .then(res => res.json());
   },
   remove: function (id) {
-    const url = buildUrl(`/api/v1/stories/${id}`);
+    const url = buildUrl(`/api/v2/stories/${id}`);
 
     return fetch(url, {
       method: 'DELETE',
