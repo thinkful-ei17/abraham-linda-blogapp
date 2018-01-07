@@ -7,6 +7,9 @@ const bodyParser = require('body-parser');
 const storiesRouterV1 = require('./routers/v1/stories-router');
 const storiesRouterV2 = require('./routers/v2/stories-router');
 const authorsRouterV2 = require('./routers/v2/authors-router');
+const storiesRouterV3 = require('./routers/v3/stories-router');
+const authorsRouterV3 = require('./routers/v3/authors-router');
+const tagsRouter = require('./routers/v3/tags-router');
 const { PORT } = require('./config');
 
 const app = express();
@@ -17,13 +20,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 
 app.get('/', (req, res)=>{
-    res.redirect('/v2');
+    res.redirect('/v3');
   }
 );
 
 app.use('/api/v1', storiesRouterV1);
 app.use('/api/v2', storiesRouterV2);
 app.use('/api/v2', authorsRouterV2);
+app.use('/api/v3', storiesRouterV3);
+app.use('/api/v3', authorsRouterV3);
+app.use('/api/v3', tagsRouter);
 
 
 // Catch-all endpoint for requests to non-existent endpoint

@@ -1,0 +1,95 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Home</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<h2>API Client</h2>
+	<ul id="nav">
+		<li> </li>
+		<a href="" class="viewList">List</a> |
+		<li> </li>
+		<a href="" class="viewCreate">Create</a>
+	</ul>
+
+
+	<div id="list" class="view"></div>
+
+	<section id="detail" class="view">
+		<fieldset>
+			<legend>Detail</legend>
+			<div>
+				<label for="title">Title</label>
+				<span class="title"></span>
+      </div>
+      <div>
+        <label for="author">Author</label>
+        <span class="author"></span>
+      </div>
+			<div>
+				<label for="content">Content</label>
+				<span class="content"></span>
+      </div>
+      <div>
+          <label for="tags">Tags</label>
+          <span class="tags"></span>
+        </div>
+			<a href="" class="edit">Edit</a>
+			<a href="" class="remove">Remove</a>
+		</fieldset>
+		<a href="" class="viewList">&lt; Back to list results </a>
+	</section>
+
+	<form id="create" class="view">
+		<fieldset>
+			<legend>Create</legend>
+			<div>
+				<label for="name">Title</label>
+				<input type="text" name="title">
+			</div>
+			<div>
+				<label for="name">Content</label>
+				<textarea rows="4" cols="50" name="content"></textarea>
+			</div>
+
+			<button type="submit">Submit</button>
+		</fieldset>
+	</form>
+
+	<form id="edit" class="view">
+		<fieldset>
+			<legend>Edit</legend>
+			<div>
+				<label for="name">Title</label>
+				<input type="text" name="title">
+      </div>
+      <div>
+        <label for="author_id"></label>
+        <select name="author_id"></select>
+      </div>
+			<div>
+				<label for="name">Content</label>
+				<textarea rows="4" cols="50" name="content"></textarea>
+			</div>
+			<button type="submit">Submit</button>
+		</fieldset>
+	</form>
+
+	<script
+		src="https://code.jquery.com/jquery-3.2.1.min.js"
+		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+		crossorigin="anonymous"></script>
+	<script src="js/fetch.js"></script>
+	<script src="js/store.js"></script>
+	<script src="js/app.js"></script>
+</body>
+
+</html>
